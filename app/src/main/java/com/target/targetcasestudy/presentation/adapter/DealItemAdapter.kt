@@ -34,9 +34,12 @@ class DealItemAdapter(private val listener: DealsAdapterListener) :
     override fun onBindViewHolder(viewHolder: DealItemViewHolder, position: Int) {
         val item = deals[position]
         val binding = viewHolder.dataBinding as DealListItemBinding
-        binding.dealListItemTitle.text = item?.title
-        binding.dealListItemPrice.text = item?.regularPrice?.displayString
-        binding.dealListItemImageView.loadImage(item?.imageUrl ?: "")
+        binding.apply {
+            dealListItemTitle.text = item?.title
+            dealListItemPrice.text = item?.regularPrice?.displayString
+            dealListItemImageView.loadImage(item?.imageUrl ?: "")
+            aisle.text = item?.aisle?.uppercase()
+        }
         binding.root.setOnClickListener {
             listener.displayDeal(item)
         }
