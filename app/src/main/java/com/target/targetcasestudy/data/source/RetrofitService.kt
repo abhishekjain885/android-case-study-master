@@ -8,8 +8,4 @@ interface RetrofitService {
 
     @GET("deals/")
     fun getDeals(): Single<DealsList>
-    //fun getAlbums(): Single<List<Album>>
-
-   /* @GET("deals/{id}/")
-    fun getPhotos(@Path("id") id: Long): Single<List<Photo>>*/
 }

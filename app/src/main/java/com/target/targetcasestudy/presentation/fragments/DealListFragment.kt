@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DealListFragment : Fragment(), DealsAdapterListener {
 
     private val viewModel: DealsViewModel by viewModels()
-    private var adapter: DealItemAdapter? = null
+    private var mAdapter: DealItemAdapter? = null
     private lateinit var binding: FragmentDealListBinding
     private var mCallback: FragmentCallBacks? = null
 
@@ -41,11 +41,12 @@ class DealListFragment : Fragment(), DealsAdapterListener {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_deal_list, container, false)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
-
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mAdapter
+        }
         viewModel.getDeals().observe(viewLifecycleOwner) {
-            adapter?.addData(it.products)
+            mAdapter?.addData(it.products)
         }
         viewModel.isDataLoading().observe(viewLifecycleOwner) {
             binding.progressBar.showHide(it)
@@ -56,7 +57,7 @@ class DealListFragment : Fragment(), DealsAdapterListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = DealItemAdapter(this)
+        mAdapter = DealItemAdapter(this)
         viewModel.loadDeals()
     }
 

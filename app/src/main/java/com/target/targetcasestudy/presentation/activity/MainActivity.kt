@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity(), FragmentCallBacks {
         }
     }
 
-    override fun navigateToDisplayDeal(album: ProductsItem?) {
-        album?.let {
+    override fun navigateToDisplayDeal(productsItem: ProductsItem?) {
+        productsItem?.let {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, DealItemFragment.newInstance(it))
                 .addToBackStack(DealItemFragment.FRAGMENT_NAME)

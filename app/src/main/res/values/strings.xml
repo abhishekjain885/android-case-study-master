@@ -10,5 +10,7 @@
   <string name="regular">Reg: </string>
   <string name="txt_ship">ship</string>
   <string name="txt_or">or</string>
+  <string name="submitted_successfully">submitted successfully</string>
+
 
 </resources>

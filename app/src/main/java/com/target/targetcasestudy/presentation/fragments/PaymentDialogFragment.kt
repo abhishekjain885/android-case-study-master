@@ -30,40 +30,44 @@ class PaymentDialogFragment : DialogFragment() {
 
     private lateinit var binding: DialogPaymentBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_payment, container, false)
-
-        // TODO enable the submit button based on card number validity using Validators.validateCreditCard()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.cancel.setOnClickListener { dismiss() }
-        binding.submit.setOnClickListener {
-            Toast.makeText(context, "submitted", Toast.LENGTH_SHORT).show()
-            dismiss()
+        binding.apply {
+
+            cancel.setOnClickListener { dismiss() }
+            submit.setOnClickListener {
+                Toast.makeText(context, resources.getString(R.string.submitted_successfully), Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+            submit.isEnabled = false
+
+
+            cardNumber.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    binding.submit.isEnabled = validateCreditCard(s.toString())
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                }
+            })
         }
-        binding.submit.isEnabled = false
-
-
-        binding.cardNumber.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                binding.submit.isEnabled = validateCreditCard(s.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable) {
-            }
-        })
     }
 
 }

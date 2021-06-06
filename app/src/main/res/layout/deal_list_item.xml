@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dp_20"
-            android:textSize="@dimen/sp_25"
+            android:textSize="@dimen/sp_22"
             app:layout_constraintBottom_toTopOf="@+id/divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/deal_list_item_image_view"
